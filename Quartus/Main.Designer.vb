@@ -28,6 +28,8 @@ Partial Class Main
         Me.FlatMini1 = New quartus.FlatMini()
         Me.FlatClose1 = New quartus.FlatClose()
         Me.FlatButton2 = New quartus.FlatButton()
+        Me.FlatButton3 = New quartus.FlatButton()
+        Me.FlatButton4 = New quartus.FlatButton()
         Me.quartus.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -36,6 +38,8 @@ Partial Class Main
         Me.quartus.BackColor = System.Drawing.Color.White
         Me.quartus.BaseColor = System.Drawing.Color.FromArgb(CType(CType(53, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(72, Byte), Integer))
         Me.quartus.BorderColor = System.Drawing.Color.FromArgb(CType(CType(53, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(72, Byte), Integer))
+        Me.quartus.Controls.Add(Me.FlatButton4)
+        Me.quartus.Controls.Add(Me.FlatButton3)
         Me.quartus.Controls.Add(Me.FlatButton1)
         Me.quartus.Controls.Add(Me.FlatMini1)
         Me.quartus.Controls.Add(Me.FlatClose1)
@@ -47,7 +51,7 @@ Partial Class Main
         Me.quartus.HeaderMaximize = False
         Me.quartus.Location = New System.Drawing.Point(0, 0)
         Me.quartus.Name = "quartus"
-        Me.quartus.Size = New System.Drawing.Size(244, 120)
+        Me.quartus.Size = New System.Drawing.Size(244, 146)
         Me.quartus.TabIndex = 2
         Me.quartus.Text = "Quartus"
         '
@@ -105,15 +109,43 @@ Partial Class Main
         Me.FlatButton2.Text = "Reload"
         Me.FlatButton2.TextColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(243, Byte), Integer), CType(CType(243, Byte), Integer))
         '
-        'Form1
+        'FlatButton3
+        '
+        Me.FlatButton3.BackColor = System.Drawing.Color.Transparent
+        Me.FlatButton3.BaseColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(156, Byte), Integer))
+        Me.FlatButton3.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.FlatButton3.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.FlatButton3.Location = New System.Drawing.Point(12, 114)
+        Me.FlatButton3.Name = "FlatButton3"
+        Me.FlatButton3.Rounded = False
+        Me.FlatButton3.Size = New System.Drawing.Size(104, 24)
+        Me.FlatButton3.TabIndex = 7
+        Me.FlatButton3.Text = "Export"
+        Me.FlatButton3.TextColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(243, Byte), Integer), CType(CType(243, Byte), Integer))
+        '
+        'FlatButton4
+        '
+        Me.FlatButton4.BackColor = System.Drawing.Color.Transparent
+        Me.FlatButton4.BaseColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(156, Byte), Integer))
+        Me.FlatButton4.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.FlatButton4.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.FlatButton4.Location = New System.Drawing.Point(128, 114)
+        Me.FlatButton4.Name = "FlatButton4"
+        Me.FlatButton4.Rounded = False
+        Me.FlatButton4.Size = New System.Drawing.Size(104, 24)
+        Me.FlatButton4.TabIndex = 8
+        Me.FlatButton4.Text = "Import"
+        Me.FlatButton4.TextColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(243, Byte), Integer), CType(CType(243, Byte), Integer))
+        '
+        'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(244, 120)
+        Me.ClientSize = New System.Drawing.Size(244, 146)
         Me.Controls.Add(Me.quartus)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "Form1"
+        Me.Name = "Main"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Quartus"
         Me.TransparencyKey = System.Drawing.Color.Fuchsia
@@ -127,4 +159,6 @@ Partial Class Main
     Friend WithEvents FlatClose1 As quartus.FlatClose
     Friend WithEvents FlatMini1 As quartus.FlatMini
     Friend WithEvents FlatButton1 As FlatButton
+    Friend WithEvents FlatButton4 As FlatButton
+    Friend WithEvents FlatButton3 As FlatButton
 End Class

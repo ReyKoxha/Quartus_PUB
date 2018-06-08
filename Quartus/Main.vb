@@ -59,7 +59,7 @@ Public Class Main
 
             If InGame Then
                 pLocalPlayer.ptr = CBasePlayer.LocalPlayer()
-                If Settings.ESP Then ESP.GlowESP(Settings.ESP, Settings.Toggable, Settings.ESPmode)
+                If Settings.ESP Then ESP.GlowESPAsync(Settings.ESP, Settings.Toggable, Settings.ESPmode)
             End If
 
             Sleep(1)
@@ -120,5 +120,53 @@ Public Class Main
     Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles Me.FormClosing
         Call UnregisterHotKey(Me.Handle, 9)
         Environment.Exit(0)
+    End Sub
+
+    Private Sub FlatButton3_Click(sender As Object, e As EventArgs) Handles FlatButton3.Click
+        Dim sDialog As New SaveFileDialog()
+        Dim Divider As String = "="
+        sDialog.DefaultExt = ".AppSettings"
+        sDialog.Filter = "Application Settings (*.AppSettings)|*AppSettings"
+
+        If sDialog.ShowDialog() = DialogResult.OK Then
+
+            Using sWriter As New StreamWriter(sDialog.FileName)
+                For Each Setting As System.Configuration.SettingsPropertyValue In My.Settings.PropertyValues
+                    sWriter.WriteLine(Setting.Property.PropertyType.ToString & Divider & Setting.Name & Divider & Setting.SerializedValue)
+                Next
+            End Using
+
+            My.Settings.Save()
+
+        End If
+    End Sub
+
+    Private Sub FlatButton4_Click(sender As Object, e As EventArgs) Handles FlatButton4.Click
+        Dim oDialog As New OpenFileDialog
+        Dim Divider As String = "="
+        oDialog.Filter = "Application Settings (*.AppSettings)|*AppSettings"
+
+        If oDialog.ShowDialog() = DialogResult.OK Then
+
+            Using sReader As New StreamReader(oDialog.FileName)
+                While sReader.Peek() > 0
+                    Dim Input = sReader.ReadLine()
+                    Dim DataSplit = Input.Split(CChar(Divider))
+                    Select Case DataSplit(0)
+                        Case "System.Boolean"
+                            My.Settings(DataSplit(1)) = CBool(DataSplit(2))
+                        Case "System.String"
+                            My.Settings(DataSplit(1)) = DataSplit(2)
+                        Case "System.Int32"
+                            My.Settings(DataSplit(1)) = CInt(DataSplit(2))
+                        Case "System.Double"
+                            My.Settings(DataSplit(1)) = CDbl(DataSplit(2))
+                    End Select
+                End While
+            End Using
+
+            My.Settings.Save()
+            Console.Beep()
+        End If
     End Sub
 End Class
