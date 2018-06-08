@@ -309,29 +309,41 @@ Public Class GUI
 
     ' KEYS
     Private Sub FlatTextBox38_TextChanged(sender As Object, e As EventArgs) Handles FlatTextBox38.TextChanged
-        Dim TRIGGERKEY As Integer = Integer.Parse(FlatTextBox38.Text)
-        My.Settings.TriggerKey = TRIGGERKEY
+        Try
+            Dim TRIGGERKEY As Integer = Integer.Parse(FlatTextBox38.Text)
+            My.Settings.TriggerKey = TRIGGERKEY
+        Catch
+        End Try
         My.Settings.Save()
         Settings.Load()
     End Sub
 
     Private Sub FlatTextBox40_TextChanged(sender As Object, e As EventArgs) Handles FlatTextBox40.TextChanged
-        Dim AIMKEY As Integer = Integer.Parse(FlatTextBox40.Text)
-        My.Settings.AimKey = AIMKEY
+        Try
+            Dim AIMKEY As Integer = Integer.Parse(FlatTextBox40.Text)
+            My.Settings.AimKey = AIMKEY
+        Catch
+        End Try
         My.Settings.Save()
         Settings.Load()
     End Sub
 
     Private Sub FlatTextBox37_TextChanged(sender As Object, e As EventArgs) Handles FlatTextBox37.TextChanged
-        Dim ESPKEY As Integer = Integer.Parse(FlatTextBox37.Text)
-        My.Settings.ESPKey = ESPKEY
+        Try
+            Dim ESPKEY As Integer = Integer.Parse(FlatTextBox37.Text)
+            My.Settings.ESPKey = ESPKEY
+        Catch
+        End Try
         My.Settings.Save()
         Settings.Load()
     End Sub
 
     Private Sub FlatTextBox39_TextChanged(sender As Object, e As EventArgs) Handles FlatTextBox39.TextChanged
-        Dim APKEY As Integer = Integer.Parse(FlatTextBox39.Text)
-        My.Settings.APKey = APKEY
+        Try
+            Dim APKEY As Integer = Integer.Parse(FlatTextBox39.Text)
+            My.Settings.APKey = APKEY
+        Catch
+        End Try
         My.Settings.Save()
         Settings.Load()
     End Sub
