@@ -59,7 +59,7 @@ Public Class Main
 
             If InGame Then
                 pLocalPlayer.ptr = CBasePlayer.LocalPlayer()
-                If Settings.ESP Then ESP.GlowESPAsync(Settings.ESP, Settings.Toggable, Settings.ESPmode)
+                If Settings.ESP Then ESP.GlowESP(Settings.ESP, Settings.Toggable, Settings.ESPmode)
             End If
 
             Sleep(1)
