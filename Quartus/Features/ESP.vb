@@ -77,8 +77,6 @@ Public Class CESP
             ElseIf Esp Then
                 pEspPlayer.Glow(My.Settings.ESPcolorEnemyR / 255, My.Settings.ESPcolorEnemyG / 255, My.Settings.ESPcolorEnemyB / 255, My.Settings.ESPcolorEnemyA / 255, True, False, False)
             End If
-
-
         Next
     End Sub
 
