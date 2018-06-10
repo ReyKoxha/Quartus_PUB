@@ -18,6 +18,9 @@ Compiling requires Visual Studio and is targeted for .NET 4.7.1.
 #### A.: Simply create a MSSQL Database (Azure). The table should contain usernames, passwords (hashed as MD5) and the HWIDs. Alternatively you can just delete the Login.vb and let the program start from the Main.vb. I also uploaded a HWID generator just in case you are too lazy to make one:
 https://github.com/ReyKoxha/Quartus_HWID
 
+However, here the SQL script:
+https://gist.github.com/ReyKoxha/1cb5c067602342d986bd0f9099c42ba2
+
 -------------------------------------------------------------------
 
 #### Q.: How do I open up the menu?
