@@ -52,10 +52,38 @@ Public Class CAimbot
                     _FOV2 /= 10
                     _FOV3 /= 10
 
-                    If My.Settings.AimMode = 1 Then
+                    'REGULAR AIMBOT
+                    If My.Settings.AimMode = 2 Then
+
+                        'PISTOLS
+                        If ENUMS.WeaponType.Pistol Then
+                            If GetTargetFov(My.Settings.AimSpotPistols, My.Settings.RangeBased) <= _FOV1 Then
+                                If Not Target.ptr = Nothing Then bounce = False
+
+                                'SNIPERS
+                            ElseIf ENUMS.WeaponType.Sniper Then
+                                If GetTargetFov(My.Settings.AimSpotSnipers, My.Settings.RangeBased) <= _FOV2 Then
+                                    If Not Target.ptr = Nothing Then bounce = False
+
+                                    'RIFLES
+                                ElseIf ENUMS.WeaponType.Rifle & ENUMS.WeaponType.SMG & ENUMS.WeaponType.Heavy Then
+                                    If GetTargetFov(My.Settings.AimSpotRifles, My.Settings.RangeBased) <= _FOV3 Then
+                                        If Not Target.ptr = Nothing Then bounce = False
+                                    End If
+                                Else
+                                    bounce = True
+                                End If
+                            End If
+                        End If
+
+                        'INCROSS AIMBOT
+                    ElseIf My.Settings.AimMode = 1 Then
+
                         Dim IncrossIndex As Integer = pLocalPlayer.IncrossIndex
+
                         If IncrossIndex > 0 And IncrossIndex < 65 Then
                             pTriggerPlayer.ptr = CBasePlayer.PointerByIndex(IncrossIndex)
+
                             'PISTOLS
                             If ENUMS.WeaponType.Pistol Then
                                 If GetTargetFov(My.Settings.AimSpotPistols, My.Settings.RangeBased) Then
@@ -77,42 +105,24 @@ Public Class CAimbot
                                 End If
                             End If
                         End If
-                    ElseIf My.Settings.AimMode = 2 Then
-                        'PISTOLS
-                        If ENUMS.WeaponType.Pistol Then
-                            If GetTargetFov(My.Settings.AimSpotPistols, My.Settings.RangeBased) <= _FOV1 Then
-                                If Not Target.ptr = Nothing Then bounce = False
-
-                                'SNIPERS
-                            ElseIf ENUMS.WeaponType.Sniper Then
-                                If GetTargetFov(My.Settings.AimSpotSnipers, My.Settings.RangeBased) <= _FOV2 Then
-                                    If Not Target.ptr = Nothing Then bounce = False
-
-                                    'RIFLES
-                                ElseIf ENUMS.WeaponType.Rifle & ENUMS.WeaponType.SMG & ENUMS.WeaponType.Heavy <= _FOV3 Then
-                                    If GetTargetFov(My.Settings.AimSpotRifles, My.Settings.RangeBased) Then
-                                        If Not Target.ptr = Nothing Then bounce = False
-                                    End If
-                                Else
-                                    bounce = True
-                                End If
-                            End If
-                        End If
                     End If
 
                     If Not bounce And Target.ptr And Not Target.IsJumping Then
 
                         Dim Ang As New Vec3(0, 0, 0)
 
-                        If My.Settings.RageAim = 1 Then
+                        If My.Settings.AimMode = 2 And My.Settings.RageAim = 1 Then
+
                             If _ID1 Then
                                 Ang = SmoothAng(ClampAngle(CalcAngle(pLocalPlayer.OriginVec, Target.BonePosition(My.Settings.AimSpotPistols), pLocalPlayer.PunchAngle, pLocalPlayer.ViewOffset)), My.Settings.SmoothPistols)
                             ElseIf _ID2 Then
                                 Ang = SmoothAng(ClampAngle(CalcAngle(pLocalPlayer.OriginVec, Target.BonePosition(My.Settings.AimSpotSnipers), pLocalPlayer.PunchAngle, pLocalPlayer.ViewOffset)), My.Settings.SmoothSnipers)
-                            ElseIf _ID3 Or _ID4 Then
+                            ElseIf _ID3 Then
                                 Ang = SmoothAng(ClampAngle(CalcAngle(pLocalPlayer.OriginVec, Target.BonePosition(My.Settings.AimSpotRifles), pLocalPlayer.PunchAngle, pLocalPlayer.ViewOffset)), My.Settings.SmoothRifles)
                             End If
-                        ElseIf My.Settings.RageAim = 0 Then
+
+                        ElseIf My.Settings.AimMode = 1 Or My.Settings.RageAim = 0 Then
+
                             If Target.SpottedByMask And pLocalPlayer.ShotsFired < 1 And _ID1 Then
                                 Ang = SmoothAng(ClampAngle(CalcAngle(pLocalPlayer.OriginVec, Target.BonePosition(My.Settings.AimSpotPistols), pLocalPlayer.PunchAngle, pLocalPlayer.ViewOffset)), My.Settings.SmoothPistols)
                             ElseIf Target.SpottedByMask And pLocalPlayer.ShotsFired < 1 And _ID2 Then
@@ -122,9 +132,11 @@ Public Class CAimbot
                             ElseIf Target.SpottedByMask And pLocalPlayer.ShotsFired < 1 And _ID4 Then
                                 Ang = SmoothAng(ClampAngle(CalcAngle(pLocalPlayer.OriginVec, Target.BonePosition(My.Settings.AimSpotRifles), pLocalPlayer.PunchAngle, pLocalPlayer.ViewOffset)), My.Settings.SmoothRifles)
                             End If
+
                         End If
 
                         If Ang.x + Ang.y + Ang.z <> 0 Then Engine.SetAngles(ClampAngle(Ang))
+
                     End If
 
 
@@ -144,87 +156,25 @@ Public Class CAimbot
         If trgt.Health > 0 And Not trgt.Dormant Then Return True Else Return False
     End Function
 
+    Public Function Deg2Rad(input As Integer)
+        Return input * Math.PI / 180
+    End Function
+
     Private Function GetTargetFov(Bone As Integer, Rangebased As Boolean) As Single
 
-        If My.Settings.RangeBased Then
-            Return GetNextEnemyToCrosshairRangebased(Bone, Target.ptr) / 10
+        If My.Settings.RangeBased = True Then
+            Return GetNextEnemyToCrosshair(Bone, Target.ptr) / 10
         Else
             Return GetNextEnemyToCrosshair(Bone, Target.ptr)
         End If
-    End Function
 
-    Public Function GetNextEnemyToCrosshairRangebased(Bone As Integer, ByRef pPointer As Integer) As Single
-        Dim Fov As Single
-        Dim pAngles As Vec3 = Engine.ViewAngles()
-
-        Dim PlayerArray(32) As Integer
-        Dim AngleArray(32) As Single
-
-        For i As Integer = 1 To 32
-            Dim CurPlayer As New CBasePlayer(CBasePlayer.PointerByIndex(i))
-
-            Dim pAngle As Vec3 = CurPlayer.BonePosition(Bone)
-            pAngle = CalcAngle(pLocalPlayer.OriginVec, pAngle, pLocalPlayer.PunchAngle, pLocalPlayer.ViewOffset)
-            pAngle = ClampAngle(pAngle)
-            Dim iDiff As Single = Get3dDistance(pAngle, pAngles)
-
-            PlayerArray(i) = CurPlayer.ptr
-            AngleArray(i) = iDiff
-        Next
-
-        Dim ClosestPlayer As Integer = 0
-        Dim ClosestAngle As Single = 360
-
-        For i As Integer = 1 To 32
-            Dim pPlayer As New CBasePlayer(PlayerArray(i))
-            Dim pAngle As Single = AngleArray(i)
-
-            Dim CurPlayerTeam As Integer = pPlayer.Team
-            Dim Dormant As Boolean = pPlayer.Dormant
-            Dim Health As Integer = pPlayer.Health
-
-            Dim pOriginVec As Vec3 = pPlayer.OriginVec
-            pOriginVec.z += 64
-
-            If CurPlayerTeam <> pLocalPlayer.Team And (Not Dormant) And Health > 0 And pAngle < ClosestAngle Then
-                ClosestPlayer = pPlayer.ptr
-                ClosestAngle = pAngle
-                Fov = pAngle
-            End If
-        Next
-
-        Dim pNearestPlayer As New CBasePlayer(ClosestPlayer)
-        Dim myAngle As Vec3 = ClampAngle(Engine.ViewAngles + pLocalPlayer.PunchAngle)
-        Dim enemyAngle As Vec3 = CalcAngle(pLocalPlayer.OriginVec, pNearestPlayer.BonePosition(Bone), pLocalPlayer.PunchAngle, pLocalPlayer.ViewOffset)
-
-        Dim AngleY = enemyAngle.y - myAngle.y
-        If AngleY < 0 Then AngleY *= -1
-
-        Dim AngleX = enemyAngle.x - myAngle.x
-        If AngleX < 0 Then AngleX *= -1
-
-        Dim r = Get3dDistance(pLocalPlayer.OriginVec, pNearestPlayer.OriginVec)
-
-        Dim FovFractionY = Math.Sqrt(2 * r * r - 2 * r * r * Math.Cos(Deg2Rad(AngleY)))
-        Dim FovFractionX = Math.Sqrt(2 * r * r - 2 * r * r * Math.Cos(Deg2Rad(AngleX)))
-
-        Fov = Math.Sqrt((FovFractionY * FovFractionY) + (FovFractionX * FovFractionX))
-        pPointer = ClosestPlayer
-
-        Return Fov
-    End Function
-
-    Public Function Deg2Rad(input As Integer)
-        Return input * Math.PI / 180
     End Function
 
     Public Function GetNextEnemyToCrosshair(Bone As Integer, ByRef pPointer As Integer) As Single
         Dim Fov As Single
         Dim pAngles As Vec3 = Engine.ViewAngles()
-
         Dim PlayerArray(32) As Integer
         Dim AngleArray(32) As Single
-
 
         For i As Integer = 1 To 32
             Dim CurPlayer As New CBasePlayer(CBasePlayer.PointerByIndex(i))
@@ -260,7 +210,27 @@ Public Class CAimbot
             End If
         Next
 
-        pPointer = ClosestPlayer
+        If My.Settings.RangeBased = True Then
+            Dim pNearestPlayer As New CBasePlayer(ClosestPlayer)
+            Dim myAngle As Vec3 = ClampAngle(Engine.ViewAngles + pLocalPlayer.PunchAngle)
+            Dim enemyAngle As Vec3 = CalcAngle(pLocalPlayer.OriginVec, pNearestPlayer.BonePosition(Bone), pLocalPlayer.PunchAngle, pLocalPlayer.ViewOffset)
+
+            Dim AngleY = enemyAngle.y - myAngle.y
+            If AngleY < 0 Then AngleY *= -1
+
+            Dim AngleX = enemyAngle.x - myAngle.x
+            If AngleX < 0 Then AngleX *= -1
+
+            Dim r = Get3dDistance(pLocalPlayer.OriginVec, pNearestPlayer.OriginVec)
+
+            Dim FovFractionY = Math.Sqrt(2 * r * r - 2 * r * r * Math.Cos(Deg2Rad(AngleY)))
+            Dim FovFractionX = Math.Sqrt(2 * r * r - 2 * r * r * Math.Cos(Deg2Rad(AngleX)))
+
+            Fov = Math.Sqrt((FovFractionY * FovFractionY) + (FovFractionX * FovFractionX))
+            pPointer = ClosestPlayer
+        Else
+            pPointer = ClosestPlayer
+        End If
 
         Return Fov
     End Function
@@ -277,17 +247,20 @@ Public Class CAimbot
 
         If Delta.x >= 0.0 Then AimAngle.y += 180.0F
 
-
         Return ClampAngle(AimAngle)
     End Function
 
     Private Function ClampAngle(ViewAngle As Vec3)
+
         If ViewAngle.x < -89.0F Then ViewAngle.x = -89.0F
         If ViewAngle.x > 89.0F Then ViewAngle.x = 89.0F
+
         If ViewAngle.y < -180.0F Then ViewAngle.y += 360.0F
         If ViewAngle.y > 180.0F Then ViewAngle.y -= 360.0F
+
         If ViewAngle.z <> 0.0F Then ViewAngle.z = 0.0F
         ViewAngle.z = 0F
+
         Return ViewAngle
     End Function
 
@@ -296,8 +269,10 @@ Public Class CAimbot
     End Function
 
     Public Function SmoothAng(AimAng As Vec3, SmoothPercent As Single)
+
         If SmoothPercent <= 10 Then Return ClampAngle(AimAng)
         SmoothPercent = SmoothPercent / 10
+
         Dim Delta As New Vec3(0, 0, 0)
         Dim ViewAngle As Vec3 = Engine.ViewAngles
 
@@ -312,6 +287,5 @@ Public Class CAimbot
 
         Return ClampAngle(AimAng)
     End Function
-
 
 End Class
