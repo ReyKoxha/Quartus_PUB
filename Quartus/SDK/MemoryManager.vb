@@ -54,7 +54,7 @@ Public Class CMemoryManager
                     If [Module].ModuleName = "engine.dll" Then
                         EngineDLL = [Module].BaseAddress
                     End If
-                    If [Module].ModuleName = "client.dll" Then
+                    If [Module].ModuleName = "client_panorama.dll" Then
                         ClientDLL = [Module].BaseAddress
                     End If
                     If EngineDLL > 0 And ClientDLL > 0 Then Return True
@@ -79,6 +79,14 @@ Public Class CMemoryManager
     End Function
 
     Public Sub WrtInt(pOffset As Integer, pBytes As Integer)
+        WrtMem(pOffset, BitConverter.GetBytes(pBytes))
+    End Sub
+
+    Public Function rdShort(pOffset As Integer) As Short
+        Return BitConverter.ToInt16(RdMem(pOffset, 4), 0)
+    End Function
+
+    Public Sub WrtShort(pOffset As Integer, pBytes As Short)
         WrtMem(pOffset, BitConverter.GetBytes(pBytes))
     End Sub
 
