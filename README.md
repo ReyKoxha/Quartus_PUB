@@ -56,6 +56,10 @@ Keys
 - Trigger
 - Fastclicker
 
+Extras
+- Export config
+- Import config
+
 ## Credits
 si0n for his base
 
