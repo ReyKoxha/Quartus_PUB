@@ -1,6 +1,12 @@
-[![GitHub license](https://img.shields.io/github/license/ReyKoxha/Quartus_PUB.svg)](https://github.com/ReyKoxha/Quartus_PUB/blob/master/LICENSE.md)
+<h1 align="center">Quartus</h1>
+<p align="center">
+  <img src="https://i.imgur.com/M26k5r5.png" />
+</p>
 
-## DO NOT OPEN TICKETS, WHICH HAVE NO REAL RELATION TO THE CODE. QUESTIONS ON HOW TO COMPILE OR HOW TO REMOVE THE AUTH SYSTEM WILL BE LEFT UNREPLIED.
+<p align="center">
+  <a href="https://github.com/ReyKoxha/Quartus_PUB/blob/master/README.md"><img src="https://img.shields.io/github/license/ReyKoxha/Quartus_PUB.svg?style=for-the-badge" /></a>
+  <a href="https://discord.gg/t2mKFKJ"><img src="https://img.shields.io/discord/524303014115278868.svg?logo=discord&style=for-the-badge&colorB=7289da" /></a>
+</p>
 
 ## About
 Quartus is a very simple and plain CS:GO cheat coded in VB.NET.
@@ -12,6 +18,57 @@ As long as you won't expect too much, it will be fine though.
 
 ## Requirements
 Compiling requires Visual Studio and is targeted for .NET 4.7.1.
+
+## Features
+Aimbot
+- On/Off
+- InCrossHair
+- Normal aimbot
+- Rage aimbot (through walls)
+- Rangebased
+- FOV (Snipers, Pistols, Rifles)
+- Aimspot (Snipers, Pistols, Rifles)
+- Delay
+
+ESP
+- On/Off
+- Toggable
+- Enemy only
+- Everything
+
+Trigger
+- On/Off
+- InCrossHair
+- Normal (Head only)
+- Rage  (Head only + through walls)
+- Delay
+- Delay after shot
+
+Misc
+- Bunnyhop
+- NoFlash (adjustable)
+- Radar
+- Fastclicker
+
+Keys
+- Aimbot
+- ESP
+- Trigger
+- Fastclicker
+
+Extras
+- Export config
+- Import config
+
+## Credits
+si0n for his base
+
+Jire for some math
+
+saneki for the FlatUI theme
+
+
+Anyone else I forgot to mention?
 
 ## F.A.Q.
 #### Q.: How do I use the HWID lock?
@@ -45,13 +102,3 @@ https://gist.github.com/ReyKoxha/1cb5c067602342d986bd0f9099c42ba2
 
 ## Video
 [![QUARTUS](https://img.youtube.com/vi/SgdaKaE9fi4/0.jpg)](https://www.youtube.com/watch?v=SgdaKaE9fi4)
-
-## Credits
-si0n for his base
-
-Jire for some math
-
-saneki for the FlatUI theme
-
-
-Anyone else I forgot to mention?
