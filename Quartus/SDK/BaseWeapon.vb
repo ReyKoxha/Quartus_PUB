@@ -51,6 +51,8 @@ Public Class CBaseWeapon
                 Return WeaponType.SMG 'Mac10"
             Case 19
                 Return WeaponType.SMG 'P90"
+            Case 23
+                Return WeaponType.SMG 'MP5SD"
             Case 24
                 Return WeaponType.SMG 'UMP45"
             Case 25
@@ -58,7 +60,7 @@ Public Class CBaseWeapon
             Case 26
                 Return WeaponType.SMG 'Bizon"
             Case 27
-                Return WeaponType.Shotgun    'Mag7"
+                Return WeaponType.Shotgun  'Mag7"
             Case 28
                 Return WeaponType.Heavy 'Negev"
             Case 29

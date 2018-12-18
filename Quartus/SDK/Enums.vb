@@ -23,9 +23,10 @@
         G3SG1 = 11
         GALILAR = 13
         M249 = 14
-        M4A4 = 16
+        M4A1 = 16
         MAC10 = 17
         P90 = 19
+        MP5SD = 23
         UMP45 = 24
         XM1014 = 25
         BIZON = 26
@@ -34,14 +35,15 @@
         SAWEDOFF = 29
         TEC9 = 30
         TASER = 31
-        P2000 = 32
+        HKP2000 = 32
         MP7 = 33
         MP9 = 34
         NOVA = 35
         P250 = 36
         SCAR20 = 38
-        SG556 = 39
+        SG553 = 39
         SSG08 = 40
+        KNIFEGG = 41
         KNIFE = 42
         FLASHBANG = 43
         HEGRENADE = 44
@@ -52,8 +54,8 @@
         C4 = 49
         HEALTHSHOT = 57
         KNIFE_T = 59
-        M4A1 = 60
-        USP = 61
+        M4A1_SILENCER = 60
+        USP_SILENCER = 61
         CZ75A = 63
         REVOLVER = 64
         TAGRENADE = 68
@@ -68,7 +70,20 @@
         FIREBOMB = 81
         DIVERSION = 82
         FRAG_GRENADE = 83
-
+        KNIFE_BAYONET = 500
+        KNIFE_FLIP = 505
+        KNIFE_GUT = 506
+        KNIFE_KARAMBIT = 507
+        KNIFE_M9_BAYONET = 508
+        KNIFE_TACTICAL = 509
+        KNIFE_FALCHION = 512
+        KNIFE_SURVIVAL_BOWIE = 514
+        KNIFE_BUTTERFLY = 515
+        KNIFE_PUSH = 516
+        KNIFE_URSUS = 519
+        KNIFE_GYPSY_JACKKNIFE = 520
+        KNIFE_STILETTO = 522
+        KNIFE_WIDOWMAKER = 523
     End Enum
 
     Public Enum WeaponType
