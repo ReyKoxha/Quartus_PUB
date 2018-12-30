@@ -2,7 +2,6 @@
 Imports quartus.Offsets
 Imports quartus.CUsefulFuncs
 Imports System.Threading
-Imports Microsoft.VisualBasic.Devices
 
 Public Class CMisc
 
@@ -20,11 +19,11 @@ Public Class CMisc
     End Sub
 
     Public Sub Radar()
-    For i = 1 To MAXPLAYERS
-        pRadarPlayer.ptr = CBasePlayer.PointerByIndex(i)
-        If pRadarPlayer.Spotted = 0 And pRadarPlayer.Health > 0 And Not pRadarPlayer.Dormant Then mem.WrtInt(pRadarPlayer.ptr + m_bSpotted, 1)
-    Next
-End Sub
+        For i = 1 To MAXPLAYERS
+            pRadarPlayer.ptr = CBasePlayer.PointerByIndex(i)
+            If pRadarPlayer.Spotted = 0 And pRadarPlayer.Health > 0 And Not pRadarPlayer.Dormant Then mem.WrtInt(pRadarPlayer.ptr + m_bSpotted, 1)
+        Next
+    End Sub
 
     Public Sub Noflash(value As Integer)
         If pLocalPlayer.FlashMaxAlpha <> value Then
