@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ReyKoxha/Quartus_PUB/blob/master/README.md"><img src="https://img.shields.io/github/license/ReyKoxha/Quartus_PUB.svg?style=for-the-badge" /></a>
+  <a href="https://github.com/ReyKoxha/Quartus_PUB/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ReyKoxha/Quartus_PUB.svg?style=for-the-badge" /></a>
   <a href="https://discord.gg/t2mKFKJ"><img src="https://img.shields.io/discord/524303014115278868.svg?logo=discord&style=for-the-badge&colorB=7289da" /></a>
 </p>
 
@@ -48,13 +48,13 @@ Misc
 - Bunnyhop
 - NoFlash (adjustable)
 - Radar
-- Fastclicker
+- Autopistol
 
 Keys
 - Aimbot
 - ESP
 - Trigger
-- Fastclicker
+- Autopistol
 
 Extras
 - Export config
