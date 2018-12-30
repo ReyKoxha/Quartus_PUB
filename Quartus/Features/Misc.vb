@@ -2,6 +2,7 @@
 Imports quartus.Offsets
 Imports quartus.CUsefulFuncs
 Imports System.Threading
+Imports Microsoft.VisualBasic.Devices
 
 Public Class CMisc
 
@@ -19,11 +20,11 @@ Public Class CMisc
     End Sub
 
     Public Sub Radar()
-        For i = 1 To MAXPLAYERS
-            pRadarPlayer.ptr = CBasePlayer.PointerByIndex(i)
-            If pRadarPlayer.Spotted = 0 And pRadarPlayer.Health > 0 And Not pRadarPlayer.Dormant Then mem.WrtInt(pRadarPlayer.ptr + m_bSpotted, 1)
-        Next
-    End Sub
+    For i = 1 To MAXPLAYERS
+        pRadarPlayer.ptr = CBasePlayer.PointerByIndex(i)
+        If pRadarPlayer.Spotted = 0 And pRadarPlayer.Health > 0 And Not pRadarPlayer.Dormant Then mem.WrtInt(pRadarPlayer.ptr + m_bSpotted, 1)
+    Next
+End Sub
 
     Public Sub Noflash(value As Integer)
         If pLocalPlayer.FlashMaxAlpha <> value Then
@@ -31,13 +32,13 @@ Public Class CMisc
         End If
     End Sub
 
-    Private Declare Sub mouse_event Lib "user32" (ByVal dwFlags As Integer, ByVal dx As Integer, ByVal dy As Integer, ByVal cButtons As Integer, ByVal dwExtraInfo As Integer)
-
     Public Sub AutoPistol()
-        If GetAsyncKeyState(KeyBinds.APKey) Then
-            mouse_event(&H2, 0, 0, 0, 0)
-            mouse_event(&H4, 0, 0, 0, 0)
-            Sleep(15)
+        If pLocalPlayer.ActiveWeapon.Type = ENUMS.WeaponType.Pistol Then
+            If GetAsyncKeyState(KeyBinds.APKey) Then
+                CBasePlayer.ForceAutopistol(5)
+                Sleep(15)
+                CBasePlayer.ForceAutopistol(4)
+            End If
         End If
     End Sub
 End Class

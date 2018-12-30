@@ -150,4 +150,8 @@ Public Class CBasePlayer
         mem.WrtInt(mem.ClientDLL + dwForceAttack, 4)
         CUsefulFuncs.Sleep(Delay3)
     End Sub
+
+    Public Shared Sub ForceAutopistol(val As Integer)
+        mem.WrtInt(mem.ClientDLL + dwForceAttack, val)
+    End Sub
 End Class
