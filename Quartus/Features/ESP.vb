@@ -38,46 +38,18 @@ Public Class CESP
         Dim a As Byte
     End Structure
 
-    Public clr As New Clr_s
     Dim Col As New Color_t
 
     Public Sub GlowESP(Esp As Boolean, Toggable As Boolean, Mode As Integer)
-
         If Toggable Then
             If GetAsyncKeyState(KeyBinds.ESPKey) Then
-                If Mode = 1 Then
-                    Do
-                        GlowESPplayersonly(Esp)
-                    Loop Until GetAsyncKeyState(KeyBinds.ESPKey)
-                ElseIf Mode = 2 Then
-                    Do
-                        GlowESPall(Esp)
-                    Loop Until GetAsyncKeyState(KeyBinds.ESPKey)
-                End If
+                Do
+                    GlowESPall(Esp)
+                Loop Until GetAsyncKeyState(KeyBinds.ESPKey)
             End If
         Else
-            If Mode = 1 Then
-                GlowESPplayersonly(Esp)
-            ElseIf Mode = 2 Then
-                GlowESPall(Esp)
-            End If
+            GlowESPall(Esp)
         End If
-    End Sub
-
-    Public Sub GlowESPplayersonly(Esp As Boolean)
-        For i = 1 To MAXPLAYERS
-            pEspPlayer.ptr = CBasePlayer.PointerByIndex(i)
-
-            If pEspPlayer.Dormant Then Continue For
-            If pEspPlayer.Health < 1 Then Continue For
-            If pEspPlayer.Team = pLocalPlayer.Team Then Continue For
-
-            If Esp And pEspPlayer.SpottedByMask Then
-                pEspPlayer.Glow(My.Settings.ESPcolorEnemyVisR / 255, My.Settings.ESPcolorEnemyVisG / 255, My.Settings.ESPcolorEnemyVisB / 255, My.Settings.ESPcolorEnemyVisA / 255, True, False, False)
-            ElseIf Esp Then
-                pEspPlayer.Glow(My.Settings.ESPcolorEnemyR / 255, My.Settings.ESPcolorEnemyG / 255, My.Settings.ESPcolorEnemyB / 255, My.Settings.ESPcolorEnemyA / 255, True, False, False)
-            End If
-        Next
     End Sub
 
     Public GlowObject As GlowObject_t
@@ -97,6 +69,7 @@ Public Class CESP
                     End If
                 End If
             Next
+            Sleep(10)
         End If
     End Sub
 
@@ -126,7 +99,7 @@ Public Class CESP
                         GlowObject.a = My.Settings.ESPcolorEnemyA / 255
 
                     End If
-                Else
+                ElseIf My.Settings.ESPmode <> 1 Then
                     GlowObject.r = My.Settings.ESPcolorTeammateR / 255
                     GlowObject.g = My.Settings.ESPcolorTeammateG / 255
                     GlowObject.b = My.Settings.ESPcolorTeammateB / 255
@@ -134,28 +107,38 @@ Public Class CESP
                 End If
 
             Case ClassID.AK47, ClassID.DEagle, ClassID.WeaponAug, ClassID.WeaponBizon, ClassID.WeaponElite, ClassID.WeaponGalilAR, ClassID.WeaponUMP45, ClassID.WeaponMAC10, ClassID.WeaponFiveSeven, ClassID.WeaponTec9, ClassID.WeaponXM1014, ClassID.WeaponSawedoff, ClassID.WeaponAWP, ClassID.WeaponG3SG1, ClassID.WeaponGalil, ClassID.WeaponGlock, ClassID.WeaponHKP2000, ClassID.WeaponM249, ClassID.WeaponM4A1, ClassID.WeaponM3, ClassID.WeaponMP7, ClassID.WeaponMP9, ClassID.WeaponMP5Navy, ClassID.WeaponMag7, ClassID.WeaponNOVA, ClassID.WeaponNegev, ClassID.WeaponP250, ClassID.WeaponP90, ClassID.WeaponSCAR20, ClassID.SCAR17, ClassID.WeaponSG552, ClassID.WeaponSG556, ClassID.WeaponSSG08, ClassID.WeaponBizon
-                GlowObject.r = My.Settings.ESPcolorWeaponsR / 255
-                GlowObject.g = My.Settings.ESPcolorWeaponsG / 255
-                GlowObject.b = My.Settings.ESPcolorWeaponsB / 255
-                GlowObject.a = My.Settings.ESPcolorWeaponsA / 255
+                If My.Settings.ESPmode <> 1 Then
+                    GlowObject.r = My.Settings.ESPcolorWeaponsR / 255
+                    GlowObject.g = My.Settings.ESPcolorWeaponsG / 255
+                    GlowObject.b = My.Settings.ESPcolorWeaponsB / 255
+                    GlowObject.a = My.Settings.ESPcolorWeaponsA / 255
+                End If
 
             Case ClassID.BaseCSGrenadeProjectile, ClassID.DecoyGrenade, ClassID.DecoyProjectile, ClassID.HEGrenade, ClassID.SmokeGrenade, ClassID.MolotovGrenade, ClassID.SmokeGrenadeProjectile, ClassID.MolotovProjectile, ClassID.IncendiaryGrenade, ClassID.Flashbang, ClassID.ParticleSmokeGrenade, ClassID.ParticleFire
-                GlowObject.r = My.Settings.ESPcolorGrenadesR / 255
-                GlowObject.g = My.Settings.ESPcolorGrenadesG / 255
-                GlowObject.b = My.Settings.ESPcolorGrenadesB / 255
-                GlowObject.a = My.Settings.ESPcolorGrenadesA / 255
+                If My.Settings.ESPmode <> 1 Then
+                    GlowObject.r = My.Settings.ESPcolorGrenadesR / 255
+                    GlowObject.g = My.Settings.ESPcolorGrenadesG / 255
+                    GlowObject.b = My.Settings.ESPcolorGrenadesB / 255
+                    GlowObject.a = My.Settings.ESPcolorGrenadesA / 255
+                End If
+
 
             Case ClassID.C4, ClassID.PlantedC4
-                GlowObject.r = My.Settings.ESPcolorBombR / 255
-                GlowObject.g = My.Settings.ESPcolorBombG / 255
-                GlowObject.b = My.Settings.ESPcolorBombB / 255
-                GlowObject.a = My.Settings.ESPcolorBombA / 255
+                If My.Settings.ESPmode <> 1 Then
+                    GlowObject.r = My.Settings.ESPcolorBombR / 255
+                    GlowObject.g = My.Settings.ESPcolorBombG / 255
+                    GlowObject.b = My.Settings.ESPcolorBombB / 255
+                    GlowObject.a = My.Settings.ESPcolorBombA / 255
+                End If
 
             Case ClassID.Chicken
-                GlowObject.r = My.Settings.ESPcolorChickenR / 255
-                GlowObject.g = My.Settings.ESPcolorChickenG / 255
-                GlowObject.b = My.Settings.ESPcolorChickenB / 255
-                GlowObject.a = My.Settings.ESPcolorChickenA / 255
+                If My.Settings.ESPmode <> 1 Then
+                    GlowObject.r = My.Settings.ESPcolorChickenR / 255
+                    GlowObject.g = My.Settings.ESPcolorChickenG / 255
+                    GlowObject.b = My.Settings.ESPcolorChickenB / 255
+                    GlowObject.a = My.Settings.ESPcolorChickenA / 255
+                End If
+
 
             Case Else
                 GlowObject.RenderWhenOccluded = False
@@ -167,13 +150,5 @@ Public Class CESP
         GlowObject.RenderWhenUnoccluded = False
         GlowObject.FullBloom = False
         Return GlowObject
-    End Function
-
-    Public Function GetRenderColorFromGlowObject(GlowObject As GlowObject_t) As Clr_s
-        clr.r = 255 * GlowObject.r
-        clr.g = 255 * GlowObject.g
-        clr.b = 255 * GlowObject.b
-        clr.a = 255 * GlowObject.a
-        Return clr
     End Function
 End Class
