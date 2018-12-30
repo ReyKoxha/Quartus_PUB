@@ -1172,9 +1172,9 @@ Partial Class GUI
         Me.FlatLabel58.ForeColor = System.Drawing.Color.White
         Me.FlatLabel58.Location = New System.Drawing.Point(8, 106)
         Me.FlatLabel58.Name = "FlatLabel58"
-        Me.FlatLabel58.Size = New System.Drawing.Size(60, 13)
+        Me.FlatLabel58.Size = New System.Drawing.Size(61, 13)
         Me.FlatLabel58.TabIndex = 61
-        Me.FlatLabel58.Text = "Fastclicker"
+        Me.FlatLabel58.Text = "Autopistol"
         '
         'TabPage12
         '
@@ -1283,9 +1283,9 @@ Partial Class GUI
         Me.FlatLabel61.ForeColor = System.Drawing.Color.White
         Me.FlatLabel61.Location = New System.Drawing.Point(110, 55)
         Me.FlatLabel61.Name = "FlatLabel61"
-        Me.FlatLabel61.Size = New System.Drawing.Size(60, 13)
+        Me.FlatLabel61.Size = New System.Drawing.Size(61, 13)
         Me.FlatLabel61.TabIndex = 69
-        Me.FlatLabel61.Text = "Fastclicker"
+        Me.FlatLabel61.Text = "Autopistol"
         '
         'FlatLabel62
         '
